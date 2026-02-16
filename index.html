@@ -18,8 +18,7 @@
   <meta property="og:locale" content="es_ES">
   <meta name="twitter:card" content="summary_large_image">
 
-  <meta name="theme-color" content="#dc2626">
-  <link rel="manifest" href="manifest.json">
+  <!-- Nota: esta app es solo web (no PWA) -->
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
@@ -297,27 +296,11 @@
   <script type="module" src="app.js" defer></script>
 
   <script>
-    // Register service worker
+    // Ensure any previous service worker is removed (this app is not a PWA)
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => {
-            window.logger?.info?.('Service Worker registered');
-            reg.addEventListener('updatefound', () => {
-              const newWorker = reg.installing;
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  window.location.reload();
-                }
-              });
-            });
-            setInterval(() => reg.update(), 60000);
-            reg.update();
-          })
-          .catch(err => {
-            console.log('Service Worker registration failed:', err);
-          });
-      });
+      navigator.serviceWorker.getRegistrations?.().then((regs) => {
+        regs.forEach((r) => r.unregister());
+      }).catch(() => {});
     }
   </script>
 </body>
