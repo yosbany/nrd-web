@@ -61,6 +61,11 @@ html {
   transform: translateY(1px);
 }
 
+/* Better summary hit area */
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* FAQ accordion indicator */
 details.faq-item > summary {
   list-style: none;

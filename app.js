@@ -17,7 +17,8 @@ const BUSINESS = {
   address: 'Dr Juan B. Morelli 3475, 11400 Montevideo, Departamento de Montevideo',
   whatsappE164: '+59899646848',
   whatsappDisplay: '+598 99 646 848',
-  whatsappMessage: 'Hola! Quiero hacer un pedido. ¿Me comparten el catálogo y precios?',
+  // WhatsApp: usar solo para coordinaciones extraordinarias / pedidos especiales
+  whatsappMessage: 'Hola! Quiero coordinar un pedido especial (gran volumen / evento).',
   catalogUrl: 'https://catalogo.nrdonline.site/',
   pedidosYaUrl: 'https://www.pedidosya.com.uy/restaurantes/montevideo/panaderia-nueva-rio-dor-f259bb10-32bc-4e1d-934b-908a08efcc7c-menu?origin=shop_list',
   // Usado en el iframe de mapa y en el link externo.
@@ -66,17 +67,22 @@ function setupBusinessBindings() {
 
   // Main CTA (orders) goes to catalog
   const catalogUrl = BUSINESS.catalogUrl || '#';
-  setHref('header-catalog', catalogUrl);
+  setHref('order-catalog', catalogUrl);
   setHref('mobile-catalog', catalogUrl);
+  setHref('footer-catalog', catalogUrl);
 
   // WhatsApp (consultas)
   const wa = buildWhatsappLink();
   setHref('floating-whatsapp', wa);
+  setHref('order-whatsapp', wa);
+  setHref('mobile-whatsapp-special', wa);
 
   // PedidosYa (if present)
   setHref('footer-pedidosya', BUSINESS.pedidosYaUrl || '#');
   const py = document.getElementById('footer-pedidosya');
   if (!BUSINESS.pedidosYaUrl) py?.classList.add('hidden');
+  setHref('order-pedidosya', BUSINESS.pedidosYaUrl || '#');
+  setHref('mobile-pedidosya', BUSINESS.pedidosYaUrl || '#');
 
   // Social links (if present)
   setHref('footer-instagram', BUSINESS.instagramUrl || '#');
@@ -217,11 +223,49 @@ function setupSmoothAnchors() {
   });
 }
 
+function setupOrderMenu() {
+  const btn = document.getElementById('order-menu-btn');
+  const menu = document.getElementById('order-menu');
+  if (!btn || !menu) return;
+
+  const close = () => {
+    menu.classList.add('hidden');
+    btn.setAttribute('aria-expanded', 'false');
+  };
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = !menu.classList.contains('hidden');
+    if (isOpen) close();
+    else {
+      menu.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+    if (menu.contains(target) || btn.contains(target)) return;
+    close();
+  });
+
+  // Close on ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  // Close when selecting an option
+  menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', close));
+}
+
 function main() {
   logger.info("Initializing Panadería Nueva Río D'or");
 
   setupYear();
   setupBusinessBindings();
+  setupOrderMenu();
   setupMobileMenu();
   setupSmoothAnchors();
   setupActiveNavOnScroll();

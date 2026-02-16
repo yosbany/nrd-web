@@ -125,30 +125,32 @@ function buildHero({ business }) {
           <div class="space-y-5">
             <p class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-red-700 bg-red-50 border border-red-100 px-3 py-1">
               <span class="w-2 h-2 bg-red-600"></span>
-              Horneado diario • pedidos por catálogo online
+              Pedidos habituales: catálogo online o PedidosYa
             </p>
             <h1 class="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
-              <span class="text-red-700">${escapeHtml(business.shortName || business.name || 'Panadería')}</span>:
-              panadería artesanal en Montevideo.
+              Panadería artesanal en Montevideo
             </h1>
             <p class="text-gray-600 text-base sm:text-lg max-w-xl">
-              Productos frescos todos los días: panes, bizcochos, pastelería y salados.
-              Pedí por catálogo (recomendado) o escribinos por WhatsApp para consultas.
+              Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3">
-              <a id="hero-whatsapp" href="#" target="_blank" rel="noopener"
-                class="btn px-5 py-3 bg-green-600 text-white border border-green-700 hover:bg-green-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-                Pedir por WhatsApp
-              </a>
               <a id="hero-catalogo" href="#" target="_blank" rel="noopener"
                 class="btn px-5 py-3 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-                Ver catálogo
+                Pedir por catálogo online
+              </a>
+              <a id="hero-pedidosya" href="#" target="_blank" rel="noopener"
+                class="btn px-5 py-3 bg-white text-gray-900 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+                Pedir por PedidosYa
               </a>
             </div>
 
-            <p class="text-sm text-gray-600">
-              ¿Querés mirar primero? <a href="#productos" class="text-red-700 hover:text-red-800 underline underline-offset-4">Ver productos destacados</a>.
+            <p class="text-sm text-gray-600 max-w-xl">
+              <strong class="font-semibold text-gray-900">Pedido especial por WhatsApp:</strong>
+              para pedidos especiales, grandes volúmenes o coordinaciones fuera de lo habitual.
+              <a id="hero-whatsapp-special" href="#" target="_blank" rel="noopener" class="text-green-700 hover:text-green-800 underline underline-offset-4">
+                Escribir por WhatsApp
+              </a>
             </p>
 
             <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3">
@@ -194,6 +196,66 @@ function buildHero({ business }) {
               </div>
             </div>
             <div class="absolute -z-10 -bottom-6 -right-6 w-56 h-56 bg-red-100 border border-red-200"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function buildHowToOrder({ business }) {
+  const waDigits = String(business.whatsappE164 || '').replace(/[^\d]/g, '');
+  const waMsg = encodeURIComponent('Hola! Quiero coordinar un pedido especial (gran volumen / evento).');
+  const waLink = waDigits ? `https://wa.me/${waDigits}?text=${waMsg}` : '#';
+  const catalogUrl = business?.catalogUrl || '#';
+  const pedidosYaUrl = business?.pedidosYaUrl || '';
+
+  return `
+    <section id="como-pedir" class="bg-white border-y border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-wider text-gray-600">Cómo pedir</p>
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Elegí el canal según tu pedido</h2>
+          <p class="text-gray-600 max-w-2xl">
+            Para evitar confusión y responder más rápido, te guiamos al canal correcto.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="card p-5 space-y-2">
+            <p class="text-xs uppercase tracking-wider text-gray-600">Habitual</p>
+            <p class="font-semibold tracking-tight">Catálogo online</p>
+            <p class="text-sm text-gray-600">Pedidos habituales: ver opciones y pedir.</p>
+            <a href="${escapeHtml(catalogUrl)}" target="_blank" rel="noopener"
+              class="btn w-full mt-2 px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light">
+              Pedir por catálogo
+            </a>
+          </div>
+
+          <div class="card p-5 space-y-2">
+            <p class="text-xs uppercase tracking-wider text-gray-600">Envíos</p>
+            <p class="font-semibold tracking-tight">PedidosYa</p>
+            <p class="text-sm text-gray-600">Ideal si querés envío a domicilio.</p>
+            ${pedidosYaUrl ? `
+              <a href="${escapeHtml(pedidosYaUrl)}" target="_blank" rel="noopener"
+                class="btn w-full mt-2 px-4 py-2 bg-white text-gray-900 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs font-light">
+                Pedir por PedidosYa
+              </a>
+            ` : `
+              <p class="text-sm text-gray-500">TODO: agregar link de PedidosYa</p>
+            `}
+          </div>
+
+          <div class="card p-5 space-y-2 bg-gray-50">
+            <p class="text-xs uppercase tracking-wider text-gray-600">Extraordinario</p>
+            <p class="font-semibold tracking-tight">WhatsApp (pedido especial)</p>
+            <p class="text-sm text-gray-600">
+              Solo para pedidos especiales, grandes volúmenes o coordinaciones fuera de lo habitual.
+            </p>
+            <a href="${escapeHtml(waLink)}" target="_blank" rel="noopener"
+              class="btn w-full mt-2 px-4 py-2 border border-gray-300 hover:border-green-700 hover:text-green-800 transition-colors uppercase tracking-wider text-xs font-light">
+              Pedido especial por WhatsApp
+            </a>
           </div>
         </div>
       </div>
@@ -420,6 +482,10 @@ function buildFaq() {
     {
       q: '¿También están en PedidosYa?',
       a: 'Sí, también podés encontrarnos en PedidosYa.'
+    },
+    {
+      q: '¿Cuándo usar WhatsApp para pedir?',
+      a: 'WhatsApp es solo para pedidos especiales, grandes volúmenes o coordinaciones fuera de lo habitual. Para pedidos habituales, usá el catálogo online o PedidosYa.'
     }
   ];
 
@@ -526,7 +592,7 @@ function setupTestimonialsCarousel() {
 
 function buildContact({ business }) {
   const waDigits = String(business.whatsappE164 || '').replace(/[^\d]/g, '');
-  const waMsg = encodeURIComponent('Hola! Quiero consultar por productos y pedidos.');
+  const waMsg = encodeURIComponent('Hola! Quiero coordinar un pedido especial (gran volumen / evento).');
   const waLink = waDigits ? `https://wa.me/${waDigits}?text=${waMsg}` : '#';
   const pedidosYaUrl = business?.pedidosYaUrl || '';
 
@@ -534,30 +600,38 @@ function buildContact({ business }) {
     <section id="contacto" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
       <div class="space-y-2">
         <p class="text-xs uppercase tracking-wider text-gray-600">Contacto</p>
-        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Pedidos y consultas</h2>
-        <p class="text-gray-600 max-w-2xl">Los pedidos se realizan por el catálogo online. También estamos en <strong class="font-semibold text-gray-900">PedidosYa</strong>. Si no encontrás lo que buscás, escribinos por WhatsApp por otros productos. También tenemos lunch para eventos.</p>
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Pedidos (canales)</h2>
+        <p class="text-gray-600 max-w-2xl">
+          <strong class="font-semibold text-gray-900">Pedidos habituales:</strong> catálogo online o PedidosYa.
+          <strong class="font-semibold text-gray-900">WhatsApp:</strong> solo para pedidos especiales o coordinaciones extraordinarias.
+        </p>
       </div>
 
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="border border-gray-200 bg-gray-50 p-5 space-y-4">
           <div class="space-y-2">
-            <p class="text-xs uppercase tracking-wider text-gray-600">Canales</p>
+            <p class="text-xs uppercase tracking-wider text-gray-600">Canales correctos</p>
             <div class="space-y-2 text-sm">
-              <p><span class="text-gray-500">WhatsApp:</span> <a class="text-red-700 hover:text-red-800" href="${escapeHtml(waLink)}" target="_blank" rel="noopener">${escapeHtml(business.whatsappDisplay || business.whatsappE164 || '')}</a></p>
+              <p><span class="text-gray-500">Catálogo:</span> <a class="text-red-700 hover:text-red-800" href="${escapeHtml(business.catalogUrl || '#')}" target="_blank" rel="noopener">Abrir catálogo online</a></p>
+              ${pedidosYaUrl ? `<p><span class="text-gray-500">PedidosYa:</span> <a class="text-red-700 hover:text-red-800" href="${escapeHtml(pedidosYaUrl)}" target="_blank" rel="noopener">Abrir PedidosYa</a></p>` : ''}
+              <p><span class="text-gray-500">WhatsApp (especial):</span> <a class="text-green-700 hover:text-green-800" href="${escapeHtml(waLink)}" target="_blank" rel="noopener">Pedido especial</a></p>
               <p><span class="text-gray-500">Tel:</span> <a class="text-red-700 hover:text-red-800" href="tel:${escapeHtml(business.phoneE164)}">${escapeHtml(business.phoneDisplay)}</a></p>
               <p><span class="text-gray-500">Email:</span> <a class="text-red-700 hover:text-red-800" href="mailto:${escapeHtml(business.email)}">${escapeHtml(business.email)}</a></p>
             </div>
           </div>
           <div class="border-t border-gray-200 pt-4 space-y-2">
             <p class="text-xs uppercase tracking-wider text-gray-600">Recomendación</p>
-            <p class="text-sm text-gray-600">Para pedidos grandes (cumples, eventos), avisá con 24–48 hs. Si necesitás factura, lo coordinamos.</p>
+            <p class="text-sm text-gray-600">
+              <strong class="font-semibold text-gray-900">WhatsApp:</strong> solo para pedidos especiales, grandes volúmenes o coordinaciones fuera de lo habitual.
+              Para pedidos habituales, usá catálogo online o PedidosYa.
+            </p>
           </div>
         </div>
 
         <form id="contact-form" class="border border-gray-200 bg-white p-5 space-y-4" autocomplete="on">
-          <div class="rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
-            <strong class="font-semibold">Pedidos:</strong> se realizan por el <strong class="font-semibold">catálogo online</strong>.
-            <span class="text-blue-800">Este formulario es solo para consultas.</span>
+          <div class="rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+            <strong class="font-semibold">WhatsApp:</strong> este formulario abre WhatsApp y es solo para <strong class="font-semibold">pedidos especiales</strong>.
+            <span class="text-amber-800">Para pedidos habituales, usá catálogo o PedidosYa.</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -575,7 +649,7 @@ function buildContact({ business }) {
             <label class="block mb-1.5 text-xs uppercase tracking-wider text-gray-600" for="contact-message">Mensaje *</label>
             <textarea id="contact-message" name="message" required rows="4" maxlength="800"
               class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-red-600 bg-white text-sm rounded"
-              placeholder="Ej: Quiero 12 medialunas + 1 pan de campo para mañana a las 10:00."></textarea>
+              placeholder="Ej: Pedido especial para evento (cantidad, fecha/hora, dirección si aplica)."></textarea>
           </div>
 
           <!-- Honeypot anti-spam (oculto) -->
@@ -584,11 +658,15 @@ function buildContact({ business }) {
             <input id="contact-company" name="company" tabindex="-1" autocomplete="off">
           </div>
 
+          <label class="flex items-start gap-2 text-sm text-gray-700">
+            <input id="contact-special-confirm" name="specialConfirm" type="checkbox" required class="mt-1">
+            <span>
+              Confirmo que este es un <strong class="font-semibold text-gray-900">pedido especial</strong> o coordinación extraordinaria.
+              Para pedidos habituales usaré catálogo o PedidosYa.
+            </span>
+          </label>
+
           <div class="flex flex-col sm:flex-row gap-3 pt-1">
-            <a id="contact-catalog-btn" href="#" target="_blank" rel="noopener"
-              class="flex-1 px-5 py-3 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-              Hacer pedido en el catálogo
-            </a>
             ${pedidosYaUrl ? `
               <a href="${escapeHtml(pedidosYaUrl)}" target="_blank" rel="noopener"
                 class="flex-1 px-5 py-3 bg-white text-gray-900 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
@@ -596,11 +674,11 @@ function buildContact({ business }) {
               </a>
             ` : ''}
             <a href="${escapeHtml(waLink)}" target="_blank" rel="noopener"
-              class="flex-1 px-5 py-3 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-              Abrir WhatsApp
+              class="flex-1 px-5 py-3 border border-gray-300 hover:border-green-700 hover:text-green-800 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+              Pedido especial por WhatsApp
             </a>
           </div>
-          <p class="text-xs text-gray-500">Pedidos: por catálogo. Consultas: WhatsApp.</p>
+          <p class="text-xs text-gray-500">Pedidos habituales: catálogo / PedidosYa. WhatsApp: solo especiales.</p>
         </form>
       </div>
     </section>
@@ -682,14 +760,6 @@ function setupContactForm({ business, showToast }) {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  // Catalog CTA inside contact section
-  const catalogBtn = document.getElementById('contact-catalog-btn');
-  if (catalogBtn) {
-    const url = business?.catalogUrl || '';
-    if (url) catalogBtn.setAttribute('href', url);
-    else catalogBtn.classList.add('hidden');
-  }
-
   // Keep the form as a simple “consulta” helper: on submit, open WhatsApp with message.
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -716,7 +786,7 @@ function setupContactForm({ business, showToast }) {
       return;
     }
 
-    const text = encodeURIComponent(`Hola! Soy ${name}. Consulta: ${message}`);
+    const text = encodeURIComponent(`Hola! Soy ${name}. Pedido especial / coordinación: ${message}`);
     window.open(`https://wa.me/${waDigits}?text=${text}`, '_blank', 'noopener');
     showToast?.('Abriendo WhatsApp…');
     form.reset();
@@ -739,6 +809,7 @@ export function initializeHome({ business, showToast, openLightbox }) {
   container.innerHTML = `
     ${buildHero({ business })}
     ${buildProducts({ products })}
+    ${buildHowToOrder({ business })}
     ${buildGallery({ gallery })}
     ${buildTestimonials({ testimonials })}
     ${buildEvents({ business })}
@@ -752,12 +823,12 @@ export function initializeHome({ business, showToast, openLightbox }) {
     </noscript>
   `;
 
-  // Hero WhatsApp CTA (consultas) uses business WhatsApp
-  const heroWhatsapp = document.getElementById('hero-whatsapp');
-  if (heroWhatsapp) {
+  // Hero WhatsApp CTA (pedido especial)
+  const heroWhatsappSpecial = document.getElementById('hero-whatsapp-special');
+  if (heroWhatsappSpecial) {
     const waDigits = String(business?.whatsappE164 || '').replace(/[^\d]/g, '');
-    const msg = encodeURIComponent('Hola! Quiero hacer un pedido / consulta.');
-    heroWhatsapp.setAttribute('href', waDigits ? `https://wa.me/${waDigits}?text=${msg}` : '#');
+    const msg = encodeURIComponent('Hola! Quiero coordinar un pedido especial (gran volumen / evento).');
+    heroWhatsappSpecial.setAttribute('href', waDigits ? `https://wa.me/${waDigits}?text=${msg}` : '#');
   }
 
   // Hero catalog CTA
@@ -766,6 +837,14 @@ export function initializeHome({ business, showToast, openLightbox }) {
     const url = business?.catalogUrl || '';
     if (url) heroCatalog.setAttribute('href', url);
     else heroCatalog.classList.add('hidden');
+  }
+
+  // Hero PedidosYa CTA
+  const heroPedidosYa = document.getElementById('hero-pedidosya');
+  if (heroPedidosYa) {
+    const url = business?.pedidosYaUrl || '';
+    if (url) heroPedidosYa.setAttribute('href', url);
+    else heroPedidosYa.classList.add('hidden');
   }
 
   // Catalog button
