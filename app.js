@@ -50,22 +50,28 @@ function buildWhatsappLink() {
   return raw ? `https://wa.me/${raw}?text=${msg}` : '#';
 }
 
+function buildMapsLink() {
+  const q = encodeURIComponent(BUSINESS.mapQuery || BUSINESS.address || '');
+  return q ? `https://www.google.com/maps?q=${q}` : '#';
+}
+
 function setupBusinessBindings() {
   setText('footer-address', BUSINESS.address);
+  setText('footer-hours', BUSINESS.hoursDisplay || '—');
   setHref('footer-phone', `tel:${BUSINESS.phoneE164}`);
   setText('footer-phone', BUSINESS.phoneDisplay);
   setHref('footer-email', `mailto:${BUSINESS.email}`);
   setText('footer-email', BUSINESS.email);
+  setHref('footer-maps', buildMapsLink());
 
   // Main CTA (orders) goes to catalog
   const catalogUrl = BUSINESS.catalogUrl || '#';
   setHref('header-catalog', catalogUrl);
   setHref('mobile-catalog', catalogUrl);
-  setHref('sticky-catalog', catalogUrl);
 
   // WhatsApp (consultas)
   const wa = buildWhatsappLink();
-  setHref('sticky-whatsapp', wa);
+  setHref('floating-whatsapp', wa);
 
   // PedidosYa (if present)
   setHref('footer-pedidosya', BUSINESS.pedidosYaUrl || '#');

@@ -11,12 +11,16 @@
 
   <!-- Social Preview -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Panadería Nueva Río D'or">
   <meta property="og:title" content="Panadería Nueva Río D'or | Panadería Artesanal">
   <meta property="og:description" content="Pedidos online por catálogo. Productos frescos: panes, bizcochos, empanadas y pastelería. Lunch para eventos. Ubicación y reseñas.">
   <meta property="og:url" content="https://web.nrdonline.site/">
   <meta property="og:image" content="https://web.nrdonline.site/assets/images/og.jpg">
-  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale" content="es_UY">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Panadería Nueva Río D'or | Montevideo">
+  <meta name="twitter:description" content="Pedidos por catálogo online. Consultas por WhatsApp. Lunch para eventos.">
+  <meta name="twitter:image" content="https://web.nrdonline.site/assets/images/og.jpg">
 
   <!-- Nota: esta app es solo web (no PWA) -->
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
@@ -146,8 +150,8 @@
         </nav>
 
         <div class="flex items-center gap-2">
-          <a id="header-catalog" href="#" target="_blank" rel="noopener" class="hidden sm:inline-flex px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light">
-            Pedir por catálogo
+          <a id="header-catalog" href="#" target="_blank" rel="noopener" class="btn px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light">
+            Pedir ahora
           </a>
           <button id="mobile-menu-btn" class="md:hidden inline-flex items-center justify-center w-10 h-10 border border-gray-300 hover:border-red-600 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
             <span class="sr-only">Menú</span>
@@ -170,7 +174,7 @@
         <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#ubicacion">Ubicación</a>
         <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#contacto">Contacto</a>
         <a id="mobile-catalog" href="#" target="_blank" rel="noopener" class="mt-1 inline-flex px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light justify-center">
-          Pedir por catálogo
+          Pedir ahora
         </a>
       </div>
     </div>
@@ -211,7 +215,9 @@
         <div class="text-sm text-gray-700 space-y-1">
           <p><span class="text-gray-500">Tel:</span> <a id="footer-phone" class="hover:text-red-700" href="tel:+59825053361">2505 3361</a></p>
           <p><span class="text-gray-500">Email:</span> <a id="footer-email" class="hover:text-red-700" href="mailto:nriodor@gmail.com">nriodor@gmail.com</a></p>
+          <p><span class="text-gray-500">Horario:</span> <span id="footer-hours">—</span></p>
           <p><span class="text-gray-500">Dirección:</span> <span id="footer-address">Dr Juan B. Morelli 3475, 11400 Montevideo, Departamento de Montevideo</span></p>
+          <p><span class="text-gray-500">Cómo llegar:</span> <a id="footer-maps" class="hover:text-red-700" href="#" target="_blank" rel="noopener">Google Maps</a></p>
           <p><span class="text-gray-500">Pedidos:</span> <a id="footer-pedidosya" class="hover:text-red-700" href="#" target="_blank" rel="noopener">PedidosYa</a></p>
             <p class="pt-2">
               <span class="text-gray-500">Redes:</span>
@@ -273,23 +279,15 @@
     </div>
   </div>
 
-  <!-- Sticky CTA (mobile) -->
-  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-4">
-      <div class="bg-white/95 backdrop-blur border border-gray-200 shadow-soft">
-        <div class="grid grid-cols-2">
-          <a id="sticky-catalog" href="#" target="_blank" rel="noopener"
-            class="px-4 py-3 bg-red-600 text-white border-r border-red-700 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light text-center">
-            Pedir por catálogo
-          </a>
-          <a id="sticky-whatsapp" href="#" target="_blank" rel="noopener"
-            class="px-4 py-3 bg-white text-gray-900 hover:text-red-700 transition-colors uppercase tracking-wider text-xs font-light text-center">
-            WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Floating WhatsApp (mobile) -->
+  <a id="floating-whatsapp" href="#" target="_blank" rel="noopener"
+    class="md:hidden fixed bottom-5 right-5 z-50 w-14 h-14 bg-green-600 hover:bg-green-700 text-white border border-green-700 shadow-soft inline-flex items-center justify-center"
+    aria-label="Abrir WhatsApp">
+    <span class="sr-only">WhatsApp</span>
+    <svg viewBox="0 0 24 24" class="w-7 h-7" fill="currentColor" aria-hidden="true">
+      <path d="M20.52 3.48A11.91 11.91 0 0 0 12.06 0C5.5.02.18 5.36.2 11.92c0 2.1.55 4.15 1.6 5.97L0 24l6.3-1.74a11.9 11.9 0 0 0 5.73 1.46h.01c6.56 0 11.9-5.34 11.92-11.9.01-3.18-1.23-6.17-3.44-8.34ZM12.04 21.4h-.01a9.92 9.92 0 0 1-5.06-1.39l-.36-.22-3.74 1.03 1-3.65-.24-.38a9.91 9.91 0 0 1-1.52-5.28C2.1 6.47 6.6 1.98 12.06 2c2.65 0 5.14 1.03 7.01 2.9a9.84 9.84 0 0 1 2.9 7c-.02 5.45-4.52 9.5-9.93 9.5Zm5.45-7.43c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.68-1.64-.93-2.25-.24-.58-.48-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.28-.2-.58-.35Z"/>
+    </svg>
+  </a>
 
   <!-- View -->
   <script type="module" src="views/home/home.js" defer></script>

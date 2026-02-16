@@ -127,24 +127,29 @@ function buildHero({ business }) {
               <span class="w-2 h-2 bg-red-600"></span>
               Horneado diario • pedidos por catálogo online
             </p>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
-              Panadería artesanal con <span class="text-red-700">sabor real</span>.
+            <h1 class="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
+              <span class="text-red-700">${escapeHtml(business.shortName || business.name || 'Panadería')}</span>:
+              panadería artesanal en Montevideo.
             </h1>
             <p class="text-gray-600 text-base sm:text-lg max-w-xl">
-              Productos frescos todos los días: panes, facturas, pastelería y salados. Elegí tu favorito y pedilo en minutos.
+              Productos frescos todos los días: panes, bizcochos, pastelería y salados.
+              Pedí por catálogo (recomendado) o escribinos por WhatsApp para consultas.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3">
-              <a id="hero-catalogo" href="#" target="_blank" rel="noopener" class="px-5 py-3 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-                Hacer pedido en el catálogo
+              <a id="hero-whatsapp" href="#" target="_blank" rel="noopener"
+                class="btn px-5 py-3 bg-green-600 text-white border border-green-700 hover:bg-green-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+                Pedir por WhatsApp
               </a>
-              <a href="#productos" class="px-5 py-3 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-                Ver productos
-              </a>
-              <a id="hero-whatsapp" href="#" class="px-5 py-3 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-                Consultar por WhatsApp
+              <a id="hero-catalogo" href="#" target="_blank" rel="noopener"
+                class="btn px-5 py-3 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+                Ver catálogo
               </a>
             </div>
+
+            <p class="text-sm text-gray-600">
+              ¿Querés mirar primero? <a href="#productos" class="text-red-700 hover:text-red-800 underline underline-offset-4">Ver productos destacados</a>.
+            </p>
 
             <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3">
               <div class="border border-gray-200 bg-white/80 p-4">
@@ -175,7 +180,7 @@ function buildHero({ business }) {
               <div class="mt-5 grid grid-cols-3 gap-3">
                 ${DEFAULT_GALLERY.slice(0, 3).map((g) => `
                   <button class="gallery-btn group border border-gray-200 bg-white overflow-hidden" data-src="${escapeHtml(g.src)}" data-alt="${escapeHtml(g.alt)}" data-caption="${escapeHtml(g.caption)}" aria-label="Abrir foto: ${escapeHtml(g.caption)}">
-                    <img class="w-full h-24 object-cover group-hover:opacity-90" src="${escapeHtml(g.src)}" alt="${escapeHtml(g.alt)}" loading="lazy" decoding="async">
+                    <img class="w-full aspect-[4/3] object-cover group-hover:opacity-90" src="${escapeHtml(g.src)}" alt="${escapeHtml(g.alt)}" loading="lazy" decoding="async">
                   </button>
                 `).join('')}
               </div>
@@ -282,7 +287,7 @@ function buildGallery({ gallery }) {
         <div class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
           ${gallery.map((g) => `
             <button class="gallery-btn group border border-gray-200 bg-white overflow-hidden" data-src="${escapeHtml(g.src)}" data-alt="${escapeHtml(g.alt)}" data-caption="${escapeHtml(g.caption)}" aria-label="Abrir foto: ${escapeHtml(g.caption)}">
-              <img src="${escapeHtml(g.src)}" alt="${escapeHtml(g.alt)}" class="w-full h-40 md:h-44 object-cover group-hover:opacity-90" loading="lazy" decoding="async">
+              <img src="${escapeHtml(g.src)}" alt="${escapeHtml(g.alt)}" class="w-full aspect-[4/3] object-cover group-hover:opacity-90 bg-gray-50" loading="lazy" decoding="async">
               <div class="px-3 py-2 text-left text-xs uppercase tracking-wider text-gray-600 border-t border-gray-200">${escapeHtml(g.caption)}</div>
             </button>
           `).join('')}
@@ -301,16 +306,23 @@ function buildTestimonials({ testimonials }) {
         <p class="text-gray-600 max-w-2xl">Destacamos algunos comentarios reales (podés reemplazarlos por Google Reviews cuando quieras).</p>
       </div>
 
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-        ${testimonials.map(t => `
-          <figure class="border border-gray-200 bg-white p-5">
-            <div class="flex items-center gap-1" aria-label="Calificación ${escapeHtml(t.rating)} de 5">
-              ${renderStars(t.rating)}
-            </div>
-            <blockquote class="mt-3 text-sm text-gray-700">“${escapeHtml(t.text)}”</blockquote>
-            <figcaption class="mt-4 text-xs uppercase tracking-wider text-gray-600">${escapeHtml(t.name)}</figcaption>
-          </figure>
-        `).join('')}
+      <div class="mt-6 relative">
+        <div class="hidden md:flex items-center justify-end gap-2 mb-3">
+          <button type="button" id="testimonials-prev" class="btn w-10 h-10 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors" aria-label="Reseñas anteriores">‹</button>
+          <button type="button" id="testimonials-next" class="btn w-10 h-10 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors" aria-label="Reseñas siguientes">›</button>
+        </div>
+        <div id="testimonials-track" class="flex gap-4 overflow-x-auto pb-2 snap-x scroll-smooth">
+          ${testimonials.map(t => `
+            <figure class="snap-start card p-5 min-w-[85%] sm:min-w-[60%] md:min-w-[32%]">
+              <div class="flex items-center gap-1" aria-label="Calificación ${escapeHtml(t.rating)} de 5">
+                ${renderStars(t.rating)}
+              </div>
+              <blockquote class="mt-3 text-sm text-gray-700">“${escapeHtml(t.text)}”</blockquote>
+              <figcaption class="mt-4 text-xs uppercase tracking-wider text-gray-600">${escapeHtml(t.name)}</figcaption>
+            </figure>
+          `).join('')}
+        </div>
+        <p class="mt-3 text-xs text-gray-500">Tip: deslizá horizontalmente para ver más reseñas.</p>
       </div>
     </section>
   `;
@@ -419,10 +431,12 @@ function buildFaq() {
         <p class="text-gray-600 max-w-2xl">Respuestas rápidas para ayudarte a pedir y coordinar.</p>
       </div>
 
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div id="faq-accordion" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         ${items.map((it) => `
-          <details class="border border-gray-200 bg-white p-4">
-            <summary class="cursor-pointer font-semibold tracking-tight">${escapeHtml(it.q)}</summary>
+          <details class="faq-item card p-4">
+            <summary class="cursor-pointer font-semibold tracking-tight flex items-center justify-between gap-3 focus:outline-none">
+              <span>${escapeHtml(it.q)}</span>
+            </summary>
             <p class="mt-2 text-sm text-gray-600">${escapeHtml(it.a)}</p>
           </details>
         `).join('')}
@@ -453,10 +467,10 @@ function buildLocation({ business }) {
           </div>
 
           <div class="flex flex-col sm:flex-row gap-3 pt-1">
-            <a href="${escapeHtml(mapLink)}" target="_blank" rel="noopener" class="px-5 py-3 bg-gray-900 text-white border border-gray-900 hover:bg-black transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
-              Abrir en Maps
+            <a href="${escapeHtml(mapLink)}" target="_blank" rel="noopener" class="btn px-5 py-3 bg-gray-900 text-white border border-gray-900 hover:bg-black transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+              Cómo llegar
             </a>
-            <a href="#contacto" class="px-5 py-3 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
+            <a href="#contacto" class="btn px-5 py-3 border border-gray-300 hover:border-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-xs sm:text-sm font-light text-center">
               Escribinos
             </a>
           </div>
@@ -474,6 +488,40 @@ function buildLocation({ business }) {
       </div>
     </section>
   `;
+}
+
+function setupFaqAccordion() {
+  const root = document.getElementById('faq-accordion');
+  if (!root) return;
+  const items = Array.from(root.querySelectorAll('details'));
+  items.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      items.forEach((other) => {
+        if (other !== d) other.open = false;
+      });
+    });
+  });
+}
+
+function setupTestimonialsCarousel() {
+  const track = document.getElementById('testimonials-track');
+  const prev = document.getElementById('testimonials-prev');
+  const next = document.getElementById('testimonials-next');
+  if (!track || !prev || !next) return;
+
+  const scrollByAmount = () => {
+    const first = track.querySelector('figure');
+    const w = first ? (first.getBoundingClientRect().width + 16) : 320;
+    return Math.round(w);
+  };
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -scrollByAmount(), behavior: 'smooth' });
+  });
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: scrollByAmount(), behavior: 'smooth' });
+  });
 }
 
 function buildContact({ business }) {
@@ -708,10 +756,8 @@ export function initializeHome({ business, showToast, openLightbox }) {
   const heroWhatsapp = document.getElementById('hero-whatsapp');
   if (heroWhatsapp) {
     const waDigits = String(business?.whatsappE164 || '').replace(/[^\d]/g, '');
-    const msg = encodeURIComponent('Hola! Quiero hacer una consulta.');
+    const msg = encodeURIComponent('Hola! Quiero hacer un pedido / consulta.');
     heroWhatsapp.setAttribute('href', waDigits ? `https://wa.me/${waDigits}?text=${msg}` : '#');
-    heroWhatsapp.setAttribute('target', '_blank');
-    heroWhatsapp.setAttribute('rel', 'noopener');
   }
 
   // Hero catalog CTA
@@ -733,5 +779,7 @@ export function initializeHome({ business, showToast, openLightbox }) {
   setupGalleryButtons({ openLightbox });
   setupProductFiltering({ showToast });
   setupContactForm({ business, showToast });
+  setupTestimonialsCarousel();
+  setupFaqAccordion();
 }
 
