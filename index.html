@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Panadería Nueva Río D'or | Panadería Artesanal</title>
+  <meta name="description" content="Panadería Nueva Río D'or en Montevideo. Pedidos online por catálogo: panes, bizcochos, empanadas y pastelería. Lunch para eventos. Horarios, ubicación y reseñas.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://web.nrdonline.site/">
+
+  <!-- Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Panadería Nueva Río D'or | Panadería Artesanal">
+  <meta property="og:description" content="Pedidos online por catálogo. Productos frescos: panes, bizcochos, empanadas y pastelería. Lunch para eventos. Ubicación y reseñas.">
+  <meta property="og:url" content="https://web.nrdonline.site/">
+  <meta property="og:image" content="https://web.nrdonline.site/assets/images/og.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta name="theme-color" content="#dc2626">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- Tailwind CSS via CDN (development) - Warning suppressed for this project architecture -->
+  <script>
+    (function() {
+      if (console.warn) {
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+          if (args[0] && typeof args[0] === 'string' &&
+              (args[0].includes('cdn.tailwindcss.com should not be used in production') ||
+               args[0].includes('cdn.tailwindcss.com'))) {
+            return;
+          }
+          originalWarn.apply(console, args);
+        };
+      }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.logger = window.logger || console;
+  </script>
+  <link rel="stylesheet" href="assets/styles/styles.css">
+
+  <!-- Structured data (EDITAR con datos reales del negocio) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Bakery",
+      "name": "Panadería Nueva Río D'or",
+      "description": "Panadería en Montevideo. Pedidos online por catálogo. Lunch para eventos. Consultas por WhatsApp.",
+      "image": ["https://web.nrdonline.site/assets/images/og.jpg"],
+      "telephone": ["+59825053361", "+59899646848"],
+      "email": "nriodor@gmail.com",
+      "sameAs": [
+        "https://www.instagram.com/nuevariodor/",
+        "https://www.tiktok.com/@nriodor",
+        "https://www.facebook.com/profile.php?id=100091573790662",
+        "https://www.pedidosya.com.uy/restaurantes/montevideo/panaderia-nueva-rio-dor-f259bb10-32bc-4e1d-934b-908a08efcc7c-menu?origin=shop_list"
+      ],
+      "menu": "https://catalogo.nrdonline.site/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Dr Juan B. Morelli 3475",
+        "postalCode": "11400",
+        "addressLocality": "Montevideo",
+        "addressRegion": "Departamento de Montevideo",
+        "addressCountry": "UY"
+      },
+      "url": "https://web.nrdonline.site/",
+      "priceRange": "$$",
+      "servesCuisine": "Bakery",
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "07:30", "closes": "22:30" }
+      ]
+    }
+  </script>
+
+  <!-- FAQ structured data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo hago un pedido?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Los pedidos se realizan por el catálogo online. Ahí vas a ver productos y opciones disponibles." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Y si no encuentro lo que busco en el catálogo?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Escribinos por WhatsApp y te ayudamos con otros productos u opciones especiales." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hacen lunch para eventos?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sí. Armamos lunch para eventos y opciones a medida. Consultanos por WhatsApp para coordinar." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuál es el horario?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Martes a domingo de 7:30 a 22:30. Lunes cerrado." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Dónde están ubicados?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Dr Juan B. Morelli 3475, 11400 Montevideo, Departamento de Montevideo." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿También están en PedidosYa?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sí, también podés encontrarnos en PedidosYa." }
+        }
+      ]
+    }
+  </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased">
+  <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:border focus:border-gray-200">
+    Saltar al contenido
+  </a>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="h-16 flex items-center justify-between gap-3">
+        <a href="#inicio" class="flex items-center gap-2 min-w-0">
+          <img src="assets/icons/icon-192.png" alt="Logo Panadería Nueva Río D'or" class="w-10 h-10 shrink-0 block -translate-y-1">
+          <span class="font-semibold tracking-tight truncate">Nueva Río D'or</span>
+          <span class="hidden sm:inline text-xs text-gray-500 truncate">Panadería artesanal</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#productos">Productos</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#galeria">Fotos</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#comentarios">Reseñas</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#eventos">Eventos</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#faq">FAQ</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#ubicacion">Ubicación</a>
+          <a class="nav-link text-gray-700 hover:text-red-700" href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a id="header-catalog" href="#" target="_blank" rel="noopener" class="hidden sm:inline-flex px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light">
+            Pedir por catálogo
+          </a>
+          <button id="mobile-menu-btn" class="md:hidden inline-flex items-center justify-center w-10 h-10 border border-gray-300 hover:border-red-600 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+            <span class="sr-only">Menú</span>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col gap-2 text-sm">
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#productos">Productos</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#galeria">Fotos</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#comentarios">Reseñas</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#eventos">Eventos</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#faq">FAQ</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#ubicacion">Ubicación</a>
+        <a class="nav-link py-2 text-gray-700 hover:text-red-700" href="#contacto">Contacto</a>
+        <a id="mobile-catalog" href="#" target="_blank" rel="noopener" class="mt-1 inline-flex px-4 py-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light justify-center">
+          Pedir por catálogo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="contenido" class="min-h-screen">
+    <div id="view-container"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <img src="assets/icons/icon-192.png" alt="" class="w-8 h-8">
+          <div class="leading-tight">
+            <p class="font-semibold">Panadería Nueva Río D'or</p>
+            <p class="text-sm text-gray-600">Panadería artesanal</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">
+          Hecho con ingredientes frescos y amor por lo simple. Pedidos y consultas por WhatsApp o formulario.
+        </p>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs uppercase tracking-wider text-gray-600">Secciones</p>
+        <div class="flex flex-col text-sm">
+          <a class="text-gray-700 hover:text-red-700" href="#productos">Productos</a>
+          <a class="text-gray-700 hover:text-red-700" href="#galeria">Fotos</a>
+          <a class="text-gray-700 hover:text-red-700" href="#comentarios">Reseñas</a>
+          <a class="text-gray-700 hover:text-red-700" href="#ubicacion">Ubicación</a>
+          <a class="text-gray-700 hover:text-red-700" href="#contacto">Contacto</a>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs uppercase tracking-wider text-gray-600">Contacto</p>
+        <div class="text-sm text-gray-700 space-y-1">
+          <p><span class="text-gray-500">Tel:</span> <a id="footer-phone" class="hover:text-red-700" href="tel:+59825053361">2505 3361</a></p>
+          <p><span class="text-gray-500">Email:</span> <a id="footer-email" class="hover:text-red-700" href="mailto:nriodor@gmail.com">nriodor@gmail.com</a></p>
+          <p><span class="text-gray-500">Dirección:</span> <span id="footer-address">Dr Juan B. Morelli 3475, 11400 Montevideo, Departamento de Montevideo</span></p>
+          <p><span class="text-gray-500">Pedidos:</span> <a id="footer-pedidosya" class="hover:text-red-700" href="#" target="_blank" rel="noopener">PedidosYa</a></p>
+            <p class="pt-2">
+              <span class="text-gray-500">Redes:</span>
+              <span class="inline-flex items-center gap-2 ml-2 align-middle">
+                <a id="footer-instagram" class="inline-flex items-center justify-center w-9 h-9 border border-gray-300 text-gray-700 hover:text-red-700 hover:border-red-600 transition-colors" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                  <span class="sr-only">Instagram</span>
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+                    <path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6A5.2 5.2 0 0 1 16.8 22H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                </a>
+
+                <a id="footer-tiktok" class="inline-flex items-center justify-center w-9 h-9 border border-gray-300 text-gray-700 hover:text-red-700 hover:border-red-600 transition-colors" href="#" target="_blank" rel="noopener" aria-label="TikTok">
+                  <span class="sr-only">TikTok</span>
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+                    <path d="M14 3v10.2a4.2 4.2 0 1 1-3.2-4.08" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 3c1.1 3.3 3.5 5.2 7 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </a>
+
+                <a id="footer-facebook" class="inline-flex items-center justify-center w-9 h-9 border border-gray-300 text-gray-700 hover:text-red-700 hover:border-red-600 transition-colors" href="#" target="_blank" rel="noopener" aria-label="Facebook">
+                  <span class="sr-only">Facebook</span>
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+                    <path d="M14 8h3V5h-3c-2.2 0-4 1.8-4 4v3H7v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1Z" fill="currentColor"/>
+                  </svg>
+                </a>
+              </span>
+            </p>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 text-xs text-gray-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <p>© <span id="year"></span> Panadería Nueva Río D'or. Todos los derechos reservados.</p>
+        <p class="flex gap-3">
+          <a class="hover:text-red-700" href="sitemap.xml">Sitemap</a>
+          <a class="hover:text-red-700" href="robots.txt">Robots</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 hidden">
+    <div id="toast-inner" class="px-4 py-3 bg-gray-900 text-white text-sm shadow-lg border border-gray-800">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vista ampliada">
+    <div class="relative w-full max-w-4xl">
+      <button id="lightbox-close" class="absolute -top-3 -right-3 w-10 h-10 bg-white text-gray-900 border border-gray-200 hover:text-red-700 hover:border-red-600 transition-colors" aria-label="Cerrar">
+        ×
+      </button>
+      <img id="lightbox-img" alt="" class="w-full h-auto border border-white/10 bg-white">
+      <p id="lightbox-caption" class="mt-2 text-sm text-white/90"></p>
+    </div>
+  </div>
+
+  <!-- Sticky CTA (mobile) -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-4">
+      <div class="bg-white/95 backdrop-blur border border-gray-200 shadow-soft">
+        <div class="grid grid-cols-2">
+          <a id="sticky-catalog" href="#" target="_blank" rel="noopener"
+            class="px-4 py-3 bg-red-600 text-white border-r border-red-700 hover:bg-red-700 transition-colors uppercase tracking-wider text-xs font-light text-center">
+            Pedir por catálogo
+          </a>
+          <a id="sticky-whatsapp" href="#" target="_blank" rel="noopener"
+            class="px-4 py-3 bg-white text-gray-900 hover:text-red-700 transition-colors uppercase tracking-wider text-xs font-light text-center">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View -->
+  <script type="module" src="views/home/home.js" defer></script>
+  <script type="module" src="app.js" defer></script>
+
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => {
+            window.logger?.info?.('Service Worker registered');
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  window.location.reload();
+                }
+              });
+            });
+            setInterval(() => reg.update(), 60000);
+            reg.update();
+          })
+          .catch(err => {
+            console.log('Service Worker registration failed:', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

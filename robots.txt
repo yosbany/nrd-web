@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://web.nrdonline.site/sitemap.xml
+
