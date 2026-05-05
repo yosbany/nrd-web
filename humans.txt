@@ -1,0 +1,13 @@
+Panadería Nueva Río D'or
+Build: 2026-02-15T22:40:36Z
+
+Tecnologías:
+- HTML semántico + ES Modules
+- Tailwind CSS (CDN)
+- PWA (manifest + service worker)
+- SEO: OpenGraph + JSON-LD + sitemap/robots
+
+Notas:
+- Editar datos del negocio en: nrd-web/app.js (const BUSINESS)
+- Reemplazar dominio en: nrd-web/sitemap.xml
+
