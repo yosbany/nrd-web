@@ -10,27 +10,23 @@ import { fetchWebContent } from './modules/web-api.js';
 const BUSINESS_DEFAULTS = {
   name: "Panadería Nueva Río D'or",
   shortName: "Nueva Río D'or",
-  // Teléfono fijo
   phoneE164: '+59825053361',
   phoneDisplay: '2505 3361',
   email: 'nriodor@gmail.com',
   address: 'Dr Juan B. Morelli 3475, 11400 Montevideo, Departamento de Montevideo',
   whatsappE164: '+59899646848',
   whatsappDisplay: '+598 99 646 848',
-  // WhatsApp: usar solo para coordinaciones extraordinarias / pedidos especiales
   whatsappMessage: 'Hola! Quiero coordinar un pedido especial (gran volumen / evento).',
   catalogUrl: 'https://catalogo.nrdonline.site/',
   pedidosYaUrl: 'https://www.pedidosya.com.uy/restaurantes/montevideo/panaderia-nueva-rio-dor-f259bb10-32bc-4e1d-934b-908a08efcc7c-menu?origin=shop_list',
-  // Usado en el iframe de mapa y en el link externo.
   mapQuery: 'Dr Juan B. Morelli 3475, 11400 Montevideo, Uruguay',
-  // Horarios (para UI; para SEO se define en index.html JSON-LD)
-  hoursDisplay: "Mar–Dom 7:30–22:30 • Lun cerrado",
+  hoursDisplay: 'Mar–Dom 7:30–22:30 • Lun cerrado',
   tiktokUrl: 'https://www.tiktok.com/@nriodor',
   instagramUrl: 'https://www.instagram.com/nuevariodor/',
   facebookUrl: 'https://www.facebook.com/profile.php?id=100091573790662',
   hero: {
-    eyebrow: 'Pedidos habituales: catálogo online o PedidosYa',
-    title: 'Panadería artesanal en Montevideo',
+    eyebrow: 'Panadería artesanal · Montevideo',
+    title: "Nueva Río D'or",
     subtitle: 'Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.'
   }
 };
@@ -97,26 +93,20 @@ function setupBusinessBindings() {
   setText('footer-email', BUSINESS.email);
   setHref('footer-maps', buildMapsLink());
 
-  // Main CTA (orders) goes to catalog
   const catalogUrl = BUSINESS.catalogUrl || '#';
-  setHref('order-catalog', catalogUrl);
+  setHref('header-catalog', catalogUrl);
   setHref('mobile-catalog', catalogUrl);
   setHref('footer-catalog', catalogUrl);
 
-  // WhatsApp (consultas)
   const wa = buildWhatsappLink();
   setHref('floating-whatsapp', wa);
-  setHref('order-whatsapp', wa);
   setHref('mobile-whatsapp-special', wa);
 
-  // PedidosYa (if present)
   setHref('footer-pedidosya', BUSINESS.pedidosYaUrl || '#');
   const py = document.getElementById('footer-pedidosya');
   if (!BUSINESS.pedidosYaUrl) py?.classList.add('hidden');
-  setHref('order-pedidosya', BUSINESS.pedidosYaUrl || '#');
   setHref('mobile-pedidosya', BUSINESS.pedidosYaUrl || '#');
 
-  // Social links (if present)
   setHref('footer-instagram', BUSINESS.instagramUrl || '#');
   setHref('footer-facebook', BUSINESS.facebookUrl || '#');
   setHref('footer-tiktok', BUSINESS.tiktokUrl || '#');
@@ -162,12 +152,10 @@ function setupMobileMenu() {
     }
   });
 
-  // Cerrar al click en un link
-  menu.querySelectorAll('a[href^="#"]').forEach(a => {
+  menu.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', () => close());
   });
 
-  // Cerrar con Escape
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
   });
@@ -178,33 +166,29 @@ function setupActiveNavOnScroll() {
   if (!('IntersectionObserver' in window) || links.length === 0) return;
 
   const sections = links
-    .map(a => document.querySelector(a.getAttribute('href')))
+    .map((a) => document.querySelector(a.getAttribute('href')))
     .filter(Boolean);
 
-  const byId = new Map(links.map(a => [a.getAttribute('href'), a]));
+  const byId = new Map(links.map((a) => [a.getAttribute('href'), a]));
 
   const setActive = (hash) => {
     byId.forEach((a) => {
-      a.classList.remove('text-red-700');
-      a.classList.add('text-gray-700');
+      a.classList.remove('text-red-600');
     });
     const a = byId.get(hash);
-    if (a) {
-      a.classList.add('text-red-700');
-      a.classList.remove('text-gray-700');
-    }
+    if (a) a.classList.add('text-red-600');
   };
 
   const io = new IntersectionObserver((entries) => {
     const visible = entries
-      .filter(e => e.isIntersecting)
+      .filter((e) => e.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (visible?.target?.id) {
       setActive('#' + visible.target.id);
     }
-  }, { root: null, threshold: [0.25, 0.5, 0.75] });
+  }, { root: null, threshold: [0.2, 0.4, 0.6] });
 
-  sections.forEach(s => io.observe(s));
+  sections.forEach((s) => io.observe(s));
 }
 
 function setupLightbox() {
@@ -242,54 +226,17 @@ function setupLightbox() {
 }
 
 function setupSmoothAnchors() {
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      history.replaceState(null, '', href);
-    });
-  });
-}
-
-function setupOrderMenu() {
-  const btn = document.getElementById('order-menu-btn');
-  const menu = document.getElementById('order-menu');
-  if (!btn || !menu) return;
-
-  const close = () => {
-    menu.classList.add('hidden');
-    btn.setAttribute('aria-expanded', 'false');
-  };
-
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const isOpen = !menu.classList.contains('hidden');
-    if (isOpen) close();
-    else {
-      menu.classList.remove('hidden');
-      btn.setAttribute('aria-expanded', 'true');
-    }
-  });
-
-  // Close when clicking outside
   document.addEventListener('click', (e) => {
-    const target = e.target;
-    if (!(target instanceof Element)) return;
-    if (menu.contains(target) || btn.contains(target)) return;
-    close();
+    const a = e.target?.closest?.('a[href^="#"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', href);
   });
-
-  // Close on ESC
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
-
-  // Close when selecting an option
-  menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', close));
 }
 
 async function main() {
@@ -306,10 +253,8 @@ async function main() {
 
   setupYear();
   setupBusinessBindings();
-  setupOrderMenu();
   setupMobileMenu();
   setupSmoothAnchors();
-  setupActiveNavOnScroll();
   setupLightbox();
 
   initializeHome({
@@ -318,7 +263,9 @@ async function main() {
     showToast,
     openLightbox: (payload) => window.NRDWeb?.openLightbox?.(payload)
   });
+
+  // Nav observer after sections exist in DOM
+  setupActiveNavOnScroll();
 }
 
 main();
-
