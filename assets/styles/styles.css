@@ -69,6 +69,27 @@ body {
   color: var(--brand);
 }
 
+.brand-lockup--on-dark .brand-lockup__name {
+  color: #fff;
+}
+
+.brand-lockup--on-dark:hover .brand-lockup__name {
+  color: #fca5a5;
+}
+
+.brand-lockup--on-dark .brand-lockup__eyebrow {
+  color: #f87171;
+}
+
+/* FAQ open state */
+details.faq-item[open] {
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
+details.faq-item > summary::after {
+  color: var(--brand);
+}
+
 
 :focus-visible {
   outline: 2px solid var(--brand);

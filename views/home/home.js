@@ -500,20 +500,23 @@ function buildContact({ business }) {
 
 function buildFaq({ faq }) {
   return `
-    <section id="faq" class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 reveal">
-      <div class="max-w-2xl mb-8">
-        <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 mb-2">FAQ</p>
-        <h2 class="font-display text-2xl sm:text-3xl tracking-tight">Preguntas frecuentes</h2>
-      </div>
-      <div id="faq-accordion" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        ${faq.map((it) => `
-          <details class="faq-item border border-neutral-200 bg-white p-4">
-            <summary class="cursor-pointer font-medium tracking-tight flex items-center justify-between gap-3 focus:outline-none">
-              <span>${escapeHtml(it.q)}</span>
-            </summary>
-            <p class="mt-2 text-sm text-neutral-600 leading-relaxed">${escapeHtml(it.a)}</p>
-          </details>
-        `).join('')}
+    <section id="faq" class="bg-neutral-50 border-t border-neutral-200 reveal">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl mb-10">
+          <p class="text-xs tracking-[0.2em] uppercase text-red-600 font-semibold mb-2">FAQ</p>
+          <h2 class="font-display text-3xl sm:text-4xl tracking-tight text-neutral-900">Preguntas frecuentes</h2>
+          <p class="mt-3 text-neutral-700 leading-relaxed">Respuestas rápidas para pedir y coordinar con tranquilidad.</p>
+        </div>
+        <div id="faq-accordion" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${faq.map((it) => `
+            <details class="faq-item group bg-white border border-neutral-200 hover:border-red-300 transition-colors p-5">
+              <summary class="cursor-pointer font-medium text-neutral-900 tracking-tight flex items-center justify-between gap-3 focus:outline-none">
+                <span>${escapeHtml(it.q)}</span>
+              </summary>
+              <p class="mt-3 text-sm text-neutral-700 leading-relaxed">${escapeHtml(it.a)}</p>
+            </details>
+          `).join('')}
+        </div>
       </div>
     </section>
   `;
