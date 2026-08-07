@@ -2,12 +2,12 @@
 const logger = window.logger || console;
 
 import { initializeHome } from './views/home/index.js';
+import { fetchWebContent } from './modules/web-api.js';
 
 /**
- * EDITA estos datos con los reales del negocio.
- * Mantenerlos aquí permite actualizar toda la web en un solo lugar.
+ * Defaults locales. Se sobrescriben con GET /web cuando la API responde.
  */
-const BUSINESS = {
+const BUSINESS_DEFAULTS = {
   name: "Panadería Nueva Río D'or",
   shortName: "Nueva Río D'or",
   // Teléfono fijo
@@ -27,8 +27,40 @@ const BUSINESS = {
   hoursDisplay: "Mar–Dom 7:30–22:30 • Lun cerrado",
   tiktokUrl: 'https://www.tiktok.com/@nriodor',
   instagramUrl: 'https://www.instagram.com/nuevariodor/',
-  facebookUrl: 'https://www.facebook.com/profile.php?id=100091573790662'
+  facebookUrl: 'https://www.facebook.com/profile.php?id=100091573790662',
+  hero: {
+    eyebrow: 'Pedidos habituales: catálogo online o PedidosYa',
+    title: 'Panadería artesanal en Montevideo',
+    subtitle: 'Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.'
+  }
 };
+
+let BUSINESS = { ...BUSINESS_DEFAULTS, hero: { ...BUSINESS_DEFAULTS.hero } };
+
+function applyWebContent(web) {
+  if (!web || typeof web !== 'object') return;
+
+  if (web.hoursDisplay) BUSINESS.hoursDisplay = String(web.hoursDisplay);
+
+  const links = web.links && typeof web.links === 'object' ? web.links : {};
+  if (links.catalogUrl) BUSINESS.catalogUrl = String(links.catalogUrl);
+  if (links.pedidosYaUrl) BUSINESS.pedidosYaUrl = String(links.pedidosYaUrl);
+  if (links.instagramUrl) BUSINESS.instagramUrl = String(links.instagramUrl);
+  if (links.facebookUrl) BUSINESS.facebookUrl = String(links.facebookUrl);
+  if (links.tiktokUrl) BUSINESS.tiktokUrl = String(links.tiktokUrl);
+
+  const wa = web.whatsapp && typeof web.whatsapp === 'object' ? web.whatsapp : {};
+  if (wa.e164) BUSINESS.whatsappE164 = String(wa.e164);
+  if (wa.display) BUSINESS.whatsappDisplay = String(wa.display);
+  if (wa.message) BUSINESS.whatsappMessage = String(wa.message);
+
+  const hero = web.hero && typeof web.hero === 'object' ? web.hero : {};
+  BUSINESS.hero = {
+    eyebrow: hero.eyebrow != null && String(hero.eyebrow).trim() ? String(hero.eyebrow) : BUSINESS.hero.eyebrow,
+    title: hero.title != null && String(hero.title).trim() ? String(hero.title) : BUSINESS.hero.title,
+    subtitle: hero.subtitle != null && String(hero.subtitle).trim() ? String(hero.subtitle) : BUSINESS.hero.subtitle
+  };
+}
 
 function setupYear() {
   const el = document.getElementById('year');
@@ -260,8 +292,17 @@ function setupOrderMenu() {
   menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', close));
 }
 
-function main() {
+async function main() {
   logger.info("Initializing Panadería Nueva Río D'or");
+
+  let webContent = null;
+  try {
+    webContent = await fetchWebContent();
+    applyWebContent(webContent);
+    logger.info('Web content loaded from API');
+  } catch (error) {
+    logger.warn('Using local defaults (GET /web failed)', error);
+  }
 
   setupYear();
   setupBusinessBindings();
@@ -273,6 +314,7 @@ function main() {
 
   initializeHome({
     business: BUSINESS,
+    webContent,
     showToast,
     openLightbox: (payload) => window.NRDWeb?.openLightbox?.(payload)
   });

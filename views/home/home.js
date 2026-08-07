@@ -117,6 +117,11 @@ function renderStars(rating) {
 }
 
 function buildHero({ business }) {
+  const hero = business?.hero || {};
+  const eyebrow = hero.eyebrow || 'Pedidos habituales: catálogo online o PedidosYa';
+  const title = hero.title || 'Panadería artesanal en Montevideo';
+  const subtitle = hero.subtitle || 'Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.';
+
   return `
     <section id="inicio" class="relative overflow-hidden">
       <div class="hero-bg absolute inset-0" aria-hidden="true"></div>
@@ -125,13 +130,13 @@ function buildHero({ business }) {
           <div class="space-y-5">
             <p class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-red-700 bg-red-50 border border-red-100 px-3 py-1">
               <span class="w-2 h-2 bg-red-600"></span>
-              Pedidos habituales: catálogo online o PedidosYa
+              ${escapeHtml(eyebrow)}
             </p>
             <h1 class="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
-              Panadería artesanal en Montevideo
+              ${escapeHtml(title)}
             </h1>
             <p class="text-gray-600 text-base sm:text-lg max-w-xl">
-              Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.
+              ${escapeHtml(subtitle)}
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3">
@@ -457,8 +462,8 @@ function buildEvents({ business }) {
   `;
 }
 
-function buildFaq() {
-  const items = [
+function buildFaq({ faq }) {
+  const items = Array.isArray(faq) && faq.length ? faq : [
     {
       q: '¿Cómo hago un pedido?',
       a: 'Los pedidos se realizan por el catálogo online. Ahí vas a ver productos y opciones disponibles.'
@@ -793,7 +798,62 @@ function setupContactForm({ business, showToast }) {
   });
 }
 
-export function initializeHome({ business, showToast, openLightbox }) {
+function buildBanner(banner) {
+  if (!banner || !banner.enabled || !banner.text) return '';
+  const type = banner.type || 'info';
+  const styles = {
+    info: 'bg-blue-50 text-blue-900 border-blue-200',
+    warning: 'bg-amber-50 text-amber-900 border-amber-200',
+    promo: 'bg-red-50 text-red-900 border-red-200'
+  };
+  const cls = styles[type] || styles.info;
+  return `
+    <div id="site-banner" class="border-b ${cls}">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 text-sm text-center">
+        ${escapeHtml(banner.text)}
+      </div>
+    </div>
+  `;
+}
+
+function mapFeaturedProducts(list) {
+  if (!Array.isArray(list) || !list.length) return DEFAULT_PRODUCTS;
+  return list
+    .filter((p) => p && p.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .map((p) => ({
+      id: p.id || p.name,
+      name: p.name || '',
+      category: p.category || '',
+      price: null,
+      unit: null,
+      description: p.description || '',
+      img: p.image || p.img || '',
+      alt: p.alt || p.name || ''
+    }));
+}
+
+function mapTestimonials(list) {
+  if (!Array.isArray(list) || !list.length) return DEFAULT_TESTIMONIALS;
+  return list
+    .filter((t) => t && t.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .map((t) => ({
+      name: t.name || '',
+      rating: t.rating || 5,
+      text: t.text || ''
+    }));
+}
+
+function mapFaq(list) {
+  if (!Array.isArray(list) || !list.length) return null;
+  return list
+    .filter((f) => f && f.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .map((f) => ({ q: f.q || '', a: f.a || '' }));
+}
+
+export function initializeHome({ business, webContent, showToast, openLightbox }) {
   logger.debug('Initializing home view');
 
   const container = document.getElementById('view-container');
@@ -802,18 +862,20 @@ export function initializeHome({ business, showToast, openLightbox }) {
     return;
   }
 
-  const products = DEFAULT_PRODUCTS;
-  const testimonials = DEFAULT_TESTIMONIALS;
+  const products = mapFeaturedProducts(webContent?.featuredProducts);
+  const testimonials = mapTestimonials(webContent?.testimonials);
+  const faq = mapFaq(webContent?.faq);
   const gallery = DEFAULT_GALLERY;
 
   container.innerHTML = `
+    ${buildBanner(webContent?.banner)}
     ${buildHero({ business })}
     ${buildProducts({ products })}
     ${buildHowToOrder({ business })}
     ${buildGallery({ gallery })}
     ${buildTestimonials({ testimonials })}
     ${buildEvents({ business })}
-    ${buildFaq()}
+    ${buildFaq({ faq })}
     ${buildLocation({ business })}
     ${buildContact({ business })}
     <noscript>
@@ -827,7 +889,7 @@ export function initializeHome({ business, showToast, openLightbox }) {
   const heroWhatsappSpecial = document.getElementById('hero-whatsapp-special');
   if (heroWhatsappSpecial) {
     const waDigits = String(business?.whatsappE164 || '').replace(/[^\d]/g, '');
-    const msg = encodeURIComponent('Hola! Quiero coordinar un pedido especial (gran volumen / evento).');
+    const msg = encodeURIComponent(business?.whatsappMessage || 'Hola! Quiero coordinar un pedido especial (gran volumen / evento).');
     heroWhatsappSpecial.setAttribute('href', waDigits ? `https://wa.me/${waDigits}?text=${msg}` : '#');
   }
 

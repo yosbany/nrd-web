@@ -1,3 +1,3 @@
 // Optional barrel exports for business modules.
-// This project is a marketing website; modules can be added here later.
+export { fetchWebContent, API_BASE } from './web-api.js';
 
