@@ -25,8 +25,8 @@ const BUSINESS_DEFAULTS = {
   instagramUrl: 'https://www.instagram.com/nuevariodor/',
   facebookUrl: 'https://www.facebook.com/profile.php?id=100091573790662',
   hero: {
-    eyebrow: 'Panadería artesanal · Montevideo',
-    title: "Nueva Río D'or",
+    eyebrow: 'Montevideo',
+    title: "Panadería Nueva Río D'or",
     subtitle: 'Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.'
   }
 };

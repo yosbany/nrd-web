@@ -21,9 +21,66 @@ body {
   background: var(--surface);
 }
 
-.font-display {
-  font-family: var(--font-display);
+/* Brand lockup (header / footer) */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
 }
+
+.brand-lockup__mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brand-lockup__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.brand-lockup__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.brand-lockup__name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  .brand-lockup__mark {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .brand-lockup__name {
+    font-size: 1.2rem;
+  }
+
+  .brand-lockup__eyebrow {
+    font-size: 0.6875rem;
+  }
+}
+
+.brand-lockup:hover .brand-lockup__name {
+  color: var(--brand);
+}
+
 
 :focus-visible {
   outline: 2px solid var(--brand);
