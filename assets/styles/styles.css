@@ -31,13 +31,6 @@ body {
   color: inherit;
 }
 
-.brand-lockup__mark {
-  width: 2.5rem;
-  height: 2.5rem;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
 .brand-lockup__text {
   display: flex;
   flex-direction: column;
@@ -56,20 +49,15 @@ body {
 
 .brand-lockup__name {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
 
 @media (min-width: 640px) {
-  .brand-lockup__mark {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-
   .brand-lockup__name {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
   }
 
   .brand-lockup__eyebrow {
