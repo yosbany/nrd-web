@@ -8,8 +8,8 @@ import { fetchWebContent } from './modules/web-api.js';
  * Defaults locales. Se sobrescriben con GET /web cuando la API responde.
  */
 const BUSINESS_DEFAULTS = {
-  name: "Panadería Nueva Río D'or",
-  shortName: "Nueva Río D'or",
+  name: 'Nueva Río D’or',
+  shortName: 'Nueva Río D’or',
   phoneE164: '+59825053361',
   phoneDisplay: '2505 3361',
   email: 'nriodor@gmail.com',
@@ -26,12 +26,13 @@ const BUSINESS_DEFAULTS = {
   facebookUrl: 'https://www.facebook.com/profile.php?id=100091573790662',
   hero: {
     eyebrow: 'Montevideo',
-    title: "Panadería Nueva Río D'or",
-    subtitle: 'Productos frescos todos los días. Pedí por nuestro catálogo online o por PedidosYa.'
+    title: 'Nueva Río D’or',
+    subtitle: 'Sabor que nos une. Productos frescos todos los días en Montevideo.'
   }
 };
 
 let BUSINESS = { ...BUSINESS_DEFAULTS, hero: { ...BUSINESS_DEFAULTS.hero } };
+let activeNavObserver = null;
 
 function applyWebContent(web) {
   if (!web || typeof web !== 'object') return;
@@ -163,6 +164,8 @@ function setupMobileMenu() {
 
 function setupActiveNavOnScroll() {
   const links = Array.from(document.querySelectorAll('a.nav-link[href^="#"]'));
+  activeNavObserver?.disconnect();
+  activeNavObserver = null;
   if (!('IntersectionObserver' in window) || links.length === 0) return;
 
   const sections = links
@@ -179,7 +182,7 @@ function setupActiveNavOnScroll() {
     if (a) a.classList.add('text-red-600');
   };
 
-  const io = new IntersectionObserver((entries) => {
+  activeNavObserver = new IntersectionObserver((entries) => {
     const visible = entries
       .filter((e) => e.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -188,7 +191,7 @@ function setupActiveNavOnScroll() {
     }
   }, { root: null, threshold: [0.2, 0.4, 0.6] });
 
-  sections.forEach((s) => io.observe(s));
+  sections.forEach((s) => activeNavObserver.observe(s));
 }
 
 function setupLightbox() {
@@ -198,17 +201,26 @@ function setupLightbox() {
   const closeBtn = document.getElementById('lightbox-close');
   if (!root || !img || !caption || !closeBtn) return;
 
+  let previousFocus = null;
   const close = () => {
     root.classList.add('hidden');
     root.classList.remove('flex');
     img.setAttribute('src', '');
     img.setAttribute('alt', '');
     caption.textContent = '';
+    previousFocus?.focus?.();
+    previousFocus = null;
   };
 
   closeBtn.addEventListener('click', close);
   root.addEventListener('click', (e) => {
     if (e.target === root) close();
+  });
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      closeBtn.focus();
+    }
   });
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
@@ -216,6 +228,7 @@ function setupLightbox() {
 
   window.NRDWeb = window.NRDWeb || {};
   window.NRDWeb.openLightbox = ({ src, alt, captionText }) => {
+    previousFocus = document.activeElement;
     img.setAttribute('src', src);
     img.setAttribute('alt', alt || '');
     caption.textContent = captionText || '';
@@ -239,33 +252,34 @@ function setupSmoothAnchors() {
   });
 }
 
-async function main() {
-  logger.info("Initializing Panadería Nueva Río D'or");
-
-  let webContent = null;
-  try {
-    webContent = await fetchWebContent();
-    applyWebContent(webContent);
-    logger.info('Web content loaded from API');
-  } catch (error) {
-    logger.warn('Using local defaults (GET /web failed)', error);
-  }
-
-  setupYear();
+function renderHome(webContent = null) {
   setupBusinessBindings();
-  setupMobileMenu();
-  setupSmoothAnchors();
-  setupLightbox();
-
   initializeHome({
     business: BUSINESS,
     webContent,
     showToast,
     openLightbox: (payload) => window.NRDWeb?.openLightbox?.(payload)
   });
-
-  // Nav observer after sections exist in DOM
   setupActiveNavOnScroll();
+}
+
+function main() {
+  logger.info('Initializing Nueva Río D’or');
+
+  setupYear();
+  setupMobileMenu();
+  setupSmoothAnchors();
+  setupLightbox();
+  renderHome();
+
+  fetchWebContent().then((webContent) => {
+    if (!webContent || typeof webContent !== 'object') return;
+    applyWebContent(webContent);
+    logger.info('Web content loaded from API');
+    renderHome(webContent);
+  }).catch((error) => {
+    logger.warn('Using local defaults (GET /web failed)', error);
+  });
 }
 
 main();

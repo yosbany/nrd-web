@@ -6,7 +6,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Pan Flauta',
     category: 'Panes',
     description: 'Clásico y fresco, ideal para todos los días.',
-    img: 'assets/images/products/pan-flauta.jpg',
+    img: 'assets/images/products/pan-flauta.webp',
     alt: 'Pan flauta'
   },
   {
@@ -14,7 +14,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Bizcochos (¼ kg)',
     category: 'Bizcochos',
     description: 'Surtido para acompañar el mate o el café.',
-    img: 'assets/images/products/bizcochos.jpg',
+    img: 'assets/images/products/bizcochos.webp',
     alt: 'Bizcochos surtidos'
   },
   {
@@ -22,7 +22,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Alfajor suizo',
     category: 'Pastelería',
     description: 'Dulce, colorido y tentador. Ideal para un antojo.',
-    img: 'assets/images/products/alfajor-suizo.jpg',
+    img: 'assets/images/products/alfajor-suizo.webp',
     alt: 'Alfajores suizos'
   },
   {
@@ -30,7 +30,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Pasta frola',
     category: 'Pastelería',
     description: 'Clásica, ideal para compartir.',
-    img: 'assets/images/products/pasta-frola-ddl.jpg',
+    img: 'assets/images/products/pasta-frola-ddl.webp',
     alt: 'Pasta frola'
   },
   {
@@ -38,7 +38,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Empanada de jamón y queso',
     category: 'Salados',
     description: 'Rellena y dorada, lista para disfrutar.',
-    img: 'assets/images/products/empanada-jamon-queso.jpg',
+    img: 'assets/images/products/empanada-jamon-queso.webp',
     alt: 'Empanada de jamón y queso'
   },
   {
@@ -46,7 +46,7 @@ const DEFAULT_PRODUCTS = [
     name: 'Medialuna rellena',
     category: 'Salados',
     description: 'Ideal para una colación rápida.',
-    img: 'assets/images/products/medialuna-rellena.jpg',
+    img: 'assets/images/products/medialuna-rellena.webp',
     alt: 'Medialuna rellena'
   }
 ];
@@ -74,42 +74,42 @@ const DEFAULT_CATEGORIES = [
     id: 'panes',
     name: 'Panes',
     description: 'Frescos todos los días',
-    image: 'assets/images/products/pan-flauta.jpg',
+    image: 'assets/images/products/pan-flauta.webp',
     href: null
   },
   {
     id: 'bizcochos',
     name: 'Bizcochos',
     description: 'Para el mate y la sobremesa',
-    image: 'assets/images/products/bizcochos.jpg',
+    image: 'assets/images/products/bizcochos.webp',
     href: null
   },
   {
     id: 'pasteleria',
     name: 'Pastelería',
     description: 'Clásicos y tentaciones',
-    image: 'assets/images/products/pasta-frola-ddl.jpg',
+    image: 'assets/images/products/pasta-frola-ddl.webp',
     href: null
   },
   {
     id: 'salados',
     name: 'Salados',
     description: 'Listos para llevar',
-    image: 'assets/images/products/empanada-jamon-queso.jpg',
+    image: 'assets/images/products/empanada-jamon-queso.webp',
     href: null
   },
   {
     id: 'eventos',
     name: 'Lunch & eventos',
     description: 'Para reuniones y celebraciones',
-    image: 'assets/images/gallery/vitrina.jpg',
+    image: 'assets/images/gallery/vitrina.webp',
     href: '#eventos'
   },
   {
     id: 'local',
     name: 'Nuestro local',
     description: 'Te esperamos en Morelli',
-    image: 'assets/images/gallery/fachada.jpg',
+    image: 'assets/images/gallery/fachada.webp',
     href: '#ubicacion'
   }
 ];
@@ -206,7 +206,7 @@ function buildHero({ business }) {
   return `
     <section id="inicio" class="hero-fullbleed">
       <div class="hero-fullbleed__media" aria-hidden="true">
-        <img src="assets/images/gallery/fachada.jpg" alt="" loading="eager" decoding="async">
+        <img src="assets/images/gallery/fachada.webp" alt="" width="1360" height="1020" fetchpriority="high" decoding="async">
       </div>
       <div class="hero-fullbleed__overlay" aria-hidden="true"></div>
       <div class="hero-fullbleed__content">
@@ -239,7 +239,7 @@ function buildPromos({ business, webContent }) {
         body: 'Enterate de novedades y avisos del local.',
         cta: 'Ver catálogo',
         href: catalogUrl,
-        image: 'assets/images/gallery/vitrina.jpg',
+        image: 'assets/images/gallery/vitrina.webp',
         external: true
       }
     : {
@@ -247,7 +247,7 @@ function buildPromos({ business, webContent }) {
         body: 'Llevate el sabor de siempre, frescas todos los días.',
         cta: 'Pedir ahora',
         href: catalogUrl,
-        image: 'assets/images/products/medialuna-rellena.jpg',
+        image: 'assets/images/products/medialuna-rellena.webp',
         external: true
       };
 
@@ -258,7 +258,7 @@ function buildPromos({ business, webContent }) {
       body: 'Pasta frola, alfajores y clásicos de mostrador.',
       cta: 'Explorar catálogo',
       href: catalogUrl,
-      image: 'assets/images/products/pasta-frola-ddl.jpg',
+      image: 'assets/images/products/pasta-frola-ddl.webp',
       external: true,
       flip: true
     },
@@ -267,7 +267,7 @@ function buildPromos({ business, webContent }) {
       body: 'Armamos opciones para reuniones, cumpleaños y empresas.',
       cta: 'Ver opciones',
       href: '#eventos',
-      image: 'assets/images/gallery/vitrina.jpg',
+      image: 'assets/images/gallery/vitrina.webp',
       external: false
     }
   ];
@@ -290,6 +290,31 @@ function buildPromos({ business, webContent }) {
           </div>
         </article>
       `).join('')}
+    </section>
+  `;
+}
+
+function buildBrandActivities() {
+  const activities = [
+    ['Panadería', 'panaderia'],
+    ['Confitería', 'confiteria'],
+    ['Rotisería', 'rotiseria'],
+    ['Sandwichería', 'sandwicheria'],
+    ['Minimarket', 'minimarket']
+  ];
+
+  return `
+    <section class="brand-activities" aria-label="Rubros de Nueva Río D’or">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 sm:py-9">
+        <ul class="brand-activities__list">
+          ${activities.map(([name, icon]) => `
+            <li class="brand-activities__item">
+              <img src="assets/images/brand/categories/${icon}.svg" width="52" height="52" alt="" loading="lazy" decoding="async">
+              <span>${name}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
     </section>
   `;
 }
@@ -427,7 +452,7 @@ function buildEvents({ business }) {
           </div>
         </div>
         <div class="overflow-hidden min-h-[280px]">
-          <img src="assets/images/gallery/vitrina.jpg" alt="Vitrina de productos" class="w-full h-full object-cover min-h-[280px]" loading="lazy" decoding="async">
+          <img src="assets/images/gallery/vitrina.webp" alt="Vitrina de productos" class="w-full h-full object-cover min-h-[280px]" width="1360" height="765" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -616,6 +641,7 @@ export function initializeHome({ business, webContent, showToast, openLightbox }
   container.innerHTML = `
     ${buildHero({ business })}
     ${buildPromos({ business, webContent })}
+    ${buildBrandActivities()}
     ${buildCategories({ business })}
     ${buildProductStrip({ products })}
     ${buildOrderStrip({ business })}

@@ -1,0 +1,40 @@
+/* Nueva Río D’or — identidad comercial aprobada v6 */
+:root {
+  color-scheme: light;
+  --nrd-fuchsia: #c4006b;
+  --nrd-cocoa: #4a2818;
+  --nrd-gold: #f5b700;
+  --nrd-white: #ffffff;
+  --nrd-cream: #fff8ed;
+  --nrd-black: #000000;
+
+  --nrd-primary: var(--nrd-fuchsia);
+  --nrd-primary-hover: #a9005c;
+  --nrd-text: var(--nrd-cocoa);
+  --nrd-text-muted: #725b4e;
+  --nrd-border: #e6d9c9;
+  --nrd-surface: var(--nrd-white);
+  --nrd-surface-warm: var(--nrd-cream);
+  --nrd-success: #276749;
+  --nrd-info: #315c7d;
+  --nrd-warning: #87520f;
+
+  /* El lettering del logo es vectorial: no se recompone con una fuente. */
+  --nrd-font-brand: "Montserrat", Arial, sans-serif;
+  --nrd-font-body: "Montserrat", Arial, sans-serif;
+
+  --nrd-space-1: 0.25rem;
+  --nrd-space-2: 0.5rem;
+  --nrd-space-3: 0.75rem;
+  --nrd-space-4: 1rem;
+  --nrd-space-6: 1.5rem;
+  --nrd-space-8: 2rem;
+  --nrd-space-12: 3rem;
+  --nrd-radius-sm: 0.25rem;
+  --nrd-radius-md: 0.75rem;
+  --nrd-radius-pill: 999px;
+  --nrd-shadow-card: 0 10px 28px rgb(74 40 24 / 10%);
+}
+
+html { font-family: var(--nrd-font-body); color: var(--nrd-text); }
+h1, h2, h3, .nrd-brand-type { font-family: var(--nrd-font-brand); }

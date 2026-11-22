@@ -3,66 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#c4006b">
 
-  <title>Panadería Nueva Río D'or | Panadería en Montevideo</title>
-  <meta name="description" content="Panadería Nueva Río D'or en Montevideo. Pedí por nuestro catálogo online o por PedidosYa. Productos frescos todos los días. Lunch para eventos. Horarios, ubicación y reseñas.">
+  <title>Nueva Río D’or | Panadería en Montevideo</title>
+  <meta name="description" content="Nueva Río D’or en Montevideo. Pedí por nuestro catálogo online o por PedidosYa. Productos frescos todos los días. Lunch para eventos. Horarios, ubicación y reseñas.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://web.nrdonline.site/">
 
   <!-- Social Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Panadería Nueva Río D'or">
-  <meta property="og:title" content="Panadería Nueva Río D'or | Panadería Artesanal">
+  <meta property="og:site_name" content="Nueva Río D’or">
+  <meta property="og:title" content="Nueva Río D’or | Sabor que nos une">
   <meta property="og:description" content="Pedí por nuestro catálogo online o por PedidosYa. Productos frescos todos los días. Lunch para eventos. Ubicación y reseñas.">
   <meta property="og:url" content="https://web.nrdonline.site/">
   <meta property="og:image" content="https://web.nrdonline.site/assets/images/og.jpg">
   <meta property="og:locale" content="es_UY">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Panadería Nueva Río D'or | Montevideo">
+  <meta name="twitter:title" content="Nueva Río D’or | Montevideo">
   <meta name="twitter:description" content="Pedí por catálogo online o por PedidosYa. WhatsApp solo para pedidos especiales.">
   <meta name="twitter:image" content="https://web.nrdonline.site/assets/images/og.jpg">
 
-  <!-- Nota: esta app es solo web (no PWA) -->
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-
-  <!-- Tailwind CSS via CDN (development) - Warning suppressed for this project architecture -->
-  <script>
-    (function() {
-      if (console.warn) {
-        const originalWarn = console.warn;
-        console.warn = function(...args) {
-          if (args[0] && typeof args[0] === 'string' &&
-              (args[0].includes('cdn.tailwindcss.com should not be used in production') ||
-               args[0].includes('cdn.tailwindcss.com'))) {
-            return;
-          }
-          originalWarn.apply(console, args);
-        };
-      }
-    })();
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    window.logger = window.logger || console;
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Manrope', 'system-ui', 'sans-serif'],
-            display: ['Fraunces', 'Georgia', 'serif']
-          },
-          colors: {
-            brand: { DEFAULT: '#dc2626', dark: '#b91c1c' }
-          }
-        }
-      }
-    };
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon_32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon_192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/images/gallery/fachada.webp" type="image/webp" fetchpriority="high">
+  <link rel="preconnect" href="https://api.nrdonline.site">
+  <link rel="stylesheet" href="assets/styles/tailwind.generated.css">
   <link rel="stylesheet" href="assets/styles/styles.css">
 
   <!-- Structured data (EDITAR con datos reales del negocio) -->
@@ -70,7 +37,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Bakery",
-      "name": "Panadería Nueva Río D'or",
+      "name": "Nueva Río D’or",
       "description": "Panadería en Montevideo. Pedidos habituales por catálogo online o por PedidosYa. Lunch para eventos. WhatsApp solo para pedidos especiales o coordinaciones extraordinarias.",
       "image": ["https://web.nrdonline.site/assets/images/og.jpg"],
       "telephone": ["+59825053361", "+59899646848"],
@@ -144,25 +111,22 @@
   </script>
 </head>
 
-<body class="bg-white text-neutral-900 font-sans antialiased">
+<body class="antialiased">
   <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:border focus:border-neutral-200">
     Saltar al contenido
   </a>
 
   <!-- Site chrome: banners + header (scroll with page, not sticky) -->
-  <div id="site-banners"></div>
+  <div id="site-banners" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <header class="bg-white border-b border-neutral-200 relative z-40">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="h-[4.25rem] sm:h-[4.75rem] flex items-center justify-between gap-3">
-        <a href="#inicio" class="brand-lockup" aria-label="Panadería Nueva Río D'or — Inicio">
-          <span class="brand-lockup__text">
-            <span class="brand-lockup__eyebrow">Panadería</span>
-            <span class="brand-lockup__name truncate">Nueva Río D'or</span>
-          </span>
+        <a href="#inicio" class="brand-lockup" aria-label="Nueva Río D’or — Inicio">
+          <img src="assets/images/brand/logo-horizontal.svg" width="194" height="56" alt="Nueva Río D’or — Sabor que nos une">
         </a>
 
-        <nav class="hidden md:flex items-center gap-7 text-sm text-neutral-700">
+        <nav class="hidden md:flex items-center gap-7 text-sm text-neutral-700" aria-label="Navegación principal">
           <a class="nav-link hover:text-red-600 transition-colors" href="#productos">Productos</a>
           <a class="nav-link hover:text-red-600 transition-colors" href="#pedir">Pedir</a>
           <a class="nav-link hover:text-red-600 transition-colors" href="#eventos">Eventos</a>
@@ -209,13 +173,10 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
       <div class="space-y-4">
         <div class="brand-lockup brand-lockup--on-dark">
-          <span class="brand-lockup__text">
-            <span class="brand-lockup__eyebrow">Panadería</span>
-            <span class="brand-lockup__name">Nueva Río D'or</span>
-          </span>
+          <img src="assets/images/brand/logo-principal-blanco.svg" width="194" height="56" alt="Nueva Río D’or — Sabor que nos une">
         </div>
         <p class="text-sm text-neutral-300 leading-relaxed max-w-xs">
-          Panadería artesanal en Montevideo. Productos frescos todos los días.
+          Sabor que nos une. Productos frescos todos los días en Montevideo.
         </p>
         <div class="pt-1 inline-flex items-center gap-2">
           <a id="footer-instagram" class="inline-flex items-center justify-center w-10 h-10 border border-white/25 text-white hover:border-red-500 hover:text-red-400 transition-colors" href="#" target="_blank" rel="noopener" aria-label="Instagram">
@@ -273,13 +234,13 @@
   </div>
 
   <!-- Lightbox Modal -->
-  <div id="lightbox" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vista ampliada">
+  <div id="lightbox" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" tabindex="-1">
     <div class="relative w-full max-w-4xl">
       <button id="lightbox-close" class="absolute -top-3 -right-3 w-10 h-10 bg-white text-gray-900 border border-gray-200 hover:text-red-700 hover:border-red-600 transition-colors" aria-label="Cerrar">
         ×
       </button>
       <img id="lightbox-img" alt="" class="w-full h-auto border border-white/10 bg-white">
-      <p id="lightbox-caption" class="mt-2 text-sm text-white/90"></p>
+      <p id="lightbox-caption" class="mt-2 text-sm text-white/90">Imagen ampliada</p>
     </div>
   </div>
 
@@ -294,7 +255,6 @@
   </a>
 
   <!-- View -->
-  <script type="module" src="views/home/home.js" defer></script>
   <script type="module" src="app.js" defer></script>
 
   <script>

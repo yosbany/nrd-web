@@ -1,0 +1,10 @@
+{
+  "name": "nrd-web",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./assets/styles/tailwind.input.css -o ./assets/styles/tailwind.generated.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
